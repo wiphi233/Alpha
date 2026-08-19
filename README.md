@@ -1,10 +1,13 @@
 # Alpha
 
-支持平台发展历程：
-- 最老版：安卓端
-- 测试版：安卓端 + Windows 端
-- 最新版：放弃移动端，转战 Windows 端，也可能包含 macOS 或 Linux
+采用开放式 3D 游戏设计，并结合音游等更多玩法。
 
-此项目大部分源代码不会开放，此仓库仅用于存储文档与发布更新。
+ This game features an 3D open world design. And also it's a rhythm game.
 
-在一些情况下，我们会在这里开放一些源代码和资源。
+> Destruction.
+> 
+> Aerissa and Everanya: Where are we?
+> 
+> A gust of wind hides the rhythm of this music.
+> 
+> It' Alpha, new beginning of the story.
