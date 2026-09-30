@@ -1,0 +1,36 @@
+{
+    "General": {
+        "Language": {
+            "en-gb": "Language",
+            "zh-cn": "语言"
+        },
+        "Volume": {
+            "en-gb": "Volume",
+            "zh-cn": "音量"
+        }
+    },
+    "World": {
+        "Weather": {
+            "en-gb": "Weather",
+            "zh-cn": "天气"
+        },
+        "Rain": {
+            "en-gb": "Rain",
+            "zh-cn": "雨"
+        }
+    },
+    "Graphics": {
+        "DynamicViewDistance": {
+            "en-gb": "DynamicViewDistance",
+            "zh-cn": "动态视距"
+        },
+        "ViewDistance": {
+            "en-gb": "ViewDistance",
+            "zh-cn": "视距"
+        },
+        "TargetFPS": {
+            "en-gb": "TargetFPS",
+            "zh-cn": "目标帧率"
+        }
+    }
+}

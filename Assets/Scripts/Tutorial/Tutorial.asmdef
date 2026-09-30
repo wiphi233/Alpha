@@ -1,0 +1,16 @@
+{
+    "name": "Tutorial",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f92c0b88c4509064b90fbb91088f78e8"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

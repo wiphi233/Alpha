@@ -1,0 +1,83 @@
+{
+    "FormatVersion": "v.4.0.0",
+    "Categories": {
+        "General": {
+            "Language": {
+                "Type": "Language",
+                "CurrentValue": "zh-cn",
+                "DefaultValue": "en-gb",
+                "Lock": false
+            },
+            "Volume": {
+                "Type": "Float",
+                "MinValue": 0,
+                "MaxValue": 1,
+                "CurrentValue": 0.8,
+                "DefaultValue": 0.6,
+                "Lock": false
+            }
+        },
+        "World": {
+            "DayNightCycle": {
+                "Type": "Bool",
+                "CurrentValue": true,
+                "DefaultValue": true,
+                "Lock": false
+            },
+            "Weather": {
+                "Type": "Bool",
+                "CurrentValue": true,
+                "DefaultValue": true,
+                "Lock": false
+            },
+            "Rain": {
+                "Type": "Bool",
+                "CurrentValue": true,
+                "DefaultValue": true,
+                "Lock": false
+            },
+            "MouseSensitivityMultiplier": {
+                "Type": "Int",
+                "MinValue": 1,
+                "MaxValue": 1000,
+                "CurrentValue": 100,
+                "DefaultValue": 100,
+                "Lock": false
+            }
+        },
+        "Graphics": {
+            "DynamicViewDistance": {
+                "Type": "Bool",
+                "CurrentValue": true,
+                "DefaultValue": true,
+                "Lock": false
+            },
+            "ViewDistance": {
+                "Type": "Int",
+                "MinValue": 1,
+                "MaxValue": 256,
+                "CurrentValue": 16,
+                "DefaultValue": 16,
+                "Lock": false
+            },
+            "TargetFPS": {
+                "Type": "Int",
+                "MinValue": 10,
+                "MaxValue": 1000,
+                "CurrentValue": 120,
+                "DefaultValue": 120,
+                "Lock": false
+            }
+        },
+        "RhythmGame": {
+            "AudioOffset": {
+                "Type": "Float",
+                "MinValue": -800,
+                "MaxValue": 800,
+                "CurrentValue": 0,
+                "DefaultValue": 0,
+                "Lock": false
+            }
+        }
+    }
+}

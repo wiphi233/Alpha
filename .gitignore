@@ -1,0 +1,43 @@
+# ---- Unity 生成/本地缓存 ----
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]serSettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+/Packages/PackageCache/
+
+# ---- IDE / 工具 ----
+.vs/
+.vscode/
+.idea/
+*.csproj
+*.sln
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+sysinfo.txt
+
+# ---- Codely / 本地工具 ----
+.codely-cli/
+.com-unity-codely.json
+.codelyignore
+# ignore.conf
+# 这个文件貌似是一些忽略文件，所以wiphi觉得应该不忽略它
+
+# ---- 按需忽略 ----
+# /开发幕后/
+# /AlphaFragments/
+
+# ---- 系统文件 ----
+.DS_Store
+Thumbs.db

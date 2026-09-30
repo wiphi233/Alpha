@@ -1,0 +1,4 @@
+repository "Alpha@tj_yfy114514@cloud.cn"
+  path "/"
+    br "/main"
+    co "/main"

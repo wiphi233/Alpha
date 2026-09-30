@@ -1,0 +1,19 @@
+{
+    "name": "HomeCore",
+    "rootNamespace": "",
+    "references": [
+        "GUID:cc89bbc7fe63ed14c958647786dd3662",
+        "GUID:47e074eb5ef803e468ecf152fa8c8694",
+        "GUID:8e51890b72d44bf4fb08ca50f5fe14c3",
+        "GUID:9045636b1fb9f6d4c8bfc8a00b79dc93"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

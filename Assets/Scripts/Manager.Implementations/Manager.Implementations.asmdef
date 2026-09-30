@@ -1,0 +1,16 @@
+{
+    "name": "ManagerImplement",
+    "rootNamespace": "",
+    "references": [
+        "GUID:cc89bbc7fe63ed14c958647786dd3662"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
