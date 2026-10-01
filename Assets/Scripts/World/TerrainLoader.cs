@@ -12,7 +12,11 @@ using static UnityEditor.PlayerSettings;
 
 public enum ObjID
 {
-    Water= 1
+    Water= 1,
+    Grass= 2,
+    Stone= 3,
+    Flower= 4,
+    Tree= 5
 }
 
 public class WorldObject
@@ -43,14 +47,6 @@ public struct ChunkData
     public GameObject TerrainObject;
     public float[,,] splatmap;
     public GrassParticleData[] grassData;
-    //public ChunkData()
-    //{
-    //    this.chunkPosition = new Vector2Int();
-    //    this.height = new float[WorldConfig.chunkSize, WorldConfig.chunkSize];
-    //    this.worldObjects = new List<WorldObject>();
-    //    this.TerrainObject = null;
-    //    this.haveWater = false;
-    //}
     public ChunkData(Vector2Int ChunkPositiion, float[,] height, List<WorldObject> worldObjects, float[,,] splatmap, GrassParticleData[] grassData, GameObject TerrainObject = null)
     {
         this.ChunkPosition = ChunkPositiion;
@@ -59,7 +55,6 @@ public struct ChunkData
         this.TerrainObject = TerrainObject;
         this.splatmap = splatmap;
         this.grassData = grassData;
-        //height = new List<List<float>>(WorldConfig.chunkSize);
     }
 }
 
