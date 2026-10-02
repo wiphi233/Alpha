@@ -102,7 +102,7 @@ public class TerrainLoader : MonoBehaviour
 
     [Header("Terrain Generation Options 地形生成参数")]
     public float distortionLevel = 200f;
-    private List<List<WorldObject>> boimeWorldObjectsSet = new List<List<WorldObject>>()
+    public List<List<WorldObject>> boimeWorldObjectsSet = new List<List<WorldObject>>()
     {
         new List<WorldObject>() // plains 平原
         {
