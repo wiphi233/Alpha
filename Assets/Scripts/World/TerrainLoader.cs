@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Pool;
 using static FastNoiseLite;
-using static UnityEditor.PlayerSettings;
+//using static UnityEditor.PlayerSettings;
 
 
 public enum ObjID
@@ -264,27 +264,47 @@ public class TerrainLoader : MonoBehaviour
 
     private void CalculateChunkData(Vector2Int chunkPosition)
     {
-        //Debug.Log($"Begin CalculateChunkData {chunkPosition.x} {chunkPosition.y}");
-        int x = chunkPosition.x * WorldConfig.chunkSize;
-        int z = chunkPosition.y * WorldConfig.chunkSize;
-        float[,] height = new float[WorldConfig.chunkSize + 1, WorldConfig.chunkSize + 1];
-        List<WorldObject> objects = new List<WorldObject>();
-        float value;
-        System.Random rng = new System.Random(chunkPosition.x ^ chunkPosition.y);
-        List<GrassParticleData> grassList = new List<GrassParticleData>();
-        DeterministicRandom drng = new DeterministicRandom(rng.Next(), chunkPosition.x, chunkPosition.y, chunkPosition.x ^ chunkPosition.y);
-        for (int i = x, hi = 0; i <= x + WorldConfig.chunkSize; i++, hi++)
+        try
         {
-            for (int j = z, hj = 0; j <= z + WorldConfig.chunkSize; j++, hj++)
+            //Debug.Log($"Begin CalculateChunkData {chunkPosition.x} {chunkPosition.y}");
+            int x = chunkPosition.x * WorldConfig.chunkSize;
+            int z = chunkPosition.y * WorldConfig.chunkSize;
+            float[,] height = new float[WorldConfig.chunkSize + 1, WorldConfig.chunkSize + 1];
+            List<WorldObject> objects = new List<WorldObject>();
+            float value;
+            System.Random rng = new System.Random(chunkPosition.x ^ chunkPosition.y);
+            List<GrassParticleData> grassList = new List<GrassParticleData>();
+            DeterministicRandom drng = new DeterministicRandom(rng.Next(), chunkPosition.x, chunkPosition.y, chunkPosition.x ^ chunkPosition.y);
+            for (int i = x, hi = 0; i <= x + WorldConfig.chunkSize; i++, hi++)
             {
-                value = GetHeight(i, j);
-                height[hi, hj] = value;
-                WorldObjectsLoader.Instance.WorldObjectGeneration(ref grassNoise, ref rng, value, i, j, ref grassList, ref objects);
-                // 注意 objects 花草等要用 ObjectPool 缓存！
+                for (int j = z, hj = 0; j <= z + WorldConfig.chunkSize; j++, hj++)
+                {
+                    value = GetHeight(i, j);
+                    height[hi, hj] = value;
+                    // WorldObjectsLoader可能未在场景中实例化，且其方法可能访问 Unity API ——
+                    // 在后台线程调用存在风险。为避免空引用和崩溃，先做空检查；
+                    // 未来应把物件实例化逻辑移回主线程。
+                    var wol = WorldObjectsLoader.Instance;
+                    if (wol != null)
+                    {
+                        wol.WorldObjectGeneration(ref grassNoise, ref rng, value, i, j, ref grassList, ref objects);
+                    }
+                    // 注意 objects 花草等要用 ObjectPool 缓存！
+                }
             }
-        }
 
-        completedChunks.Enqueue(new ChunkData(chunkPosition, height, objects, CalculateSplatmap(chunkPosition), grassList.ToArray()));
+            completedChunks.Enqueue(new ChunkData(chunkPosition, height, objects, CalculateSplatmap(chunkPosition), grassList.ToArray()));
+        }
+        catch (Exception ex)
+        {
+            // 捕获异常并记录，避免任务失败导致主线程等待死锁
+            Debug.LogError($"CalculateChunkData error at chunk ({chunkPosition.x},{chunkPosition.y}): {ex}");
+            // 生成一个空的最小高度数据以确保后续实例化可以继续
+            float[,] height = new float[WorldConfig.chunkSize + 1, WorldConfig.chunkSize + 1];
+            List<WorldObject> objects = new List<WorldObject>();
+            List<GrassParticleData> grassList = new List<GrassParticleData>();
+            completedChunks.Enqueue(new ChunkData(chunkPosition, height, objects, CalculateSplatmap(chunkPosition), grassList.ToArray()));
+        }
     }
 
     private IEnumerator RemoveFarChunks(Vector2Int centerChunk)
@@ -638,7 +658,7 @@ public class TerrainLoader : MonoBehaviour
         World.Process("计算数据与实例化世界 Calculate Data and Instantiation World...");
         yield return StartCoroutine(CalculateAllData(centerChunk));
         World.Process("实例化世界 Instantiation World...");
-        while (calculatedChunkCount < instantiatedChunkCount)
+        while (instantiatedChunkCount < calculatedChunkCount)
         {
             yield return null;
         }

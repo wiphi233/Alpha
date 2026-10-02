@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Pool;
 using static FastNoiseLite;
-using static UnityEditor.PlayerSettings;
 
 
 public class WorldObjectsLoader : MonoBehaviour
 {
     public static WorldObjectsLoader Instance;
 
-    WorldObjectsLoader()
+    void Awake()
     {
         if (Instance == null)
         {
@@ -49,6 +48,7 @@ public class WorldObjectsLoader : MonoBehaviour
                 };
                 grassList.Add(grassParticleData);
             }
+            return;
             float[] biomeWeights = TerrainLoader.Instance.GetBiomeWeights(x, z);
             double rngVal = rng.NextDouble();
             for (int idx = 1; idx < biomeWeights.Count(); idx++)
@@ -64,26 +64,31 @@ public class WorldObjectsLoader : MonoBehaviour
 
                     
                     // 生成 idx 这个群系的 world object
-                    if (objectsNoise.GetNoise(i, j) * noiseWeight + n > rng.NextDouble())
+                    //if (objectsNoise.GetNoise(i, j) * noiseWeight + n > rng.NextDouble())
+                    if (true)
                     {
                         // Random World Object for this biome
                         // rng.Next(l = 0, r) 返回 [l, r) 的左闭右开区间
-                        if (TerrainLoader.boimeWorldObjectsSet[idx].Count > 0)
+                        if (TerrainLoader.Instance.boimeWorldObjectsSet[idx].Count > 0)
                         {
                             // 随机 world object
-                            WorldObject wobj = TerrainLoader.boimeWorldObjectsSet[idx][rng.Next(TerrainLoader.boimeWorldObjectsSet[idx].Count)];
+                            WorldObject wobj = TerrainLoader.Instance.boimeWorldObjectsSet[idx][rng.Next(TerrainLoader.Instance.boimeWorldObjectsSet[idx].Count)];
                             // 随机位置
-                            Vector3 position = new Vector3(i + rng.NextDouble(), originHeight * WorldConfig.heightMultiplier, j + rng.NextDouble());
+                            Vector3 position = new Vector3((float)(x + rng.NextDouble()), originHeight * WorldConfig.heightMultiplier, (float)(z + rng.NextDouble()));
                             // 随机旋转
                             Quaternion rotation = Quaternion.Euler(0, 0, rng.Next(-180, 180)); // 绕顺序：Z, X, Y 轴旋转
+                            // 随机缩放？算了，效果不明显
                             // 检查生成条件
                             if (true)
                             {
-                                GameObject gameObject = Instantiate(wobj.gameObject, position, rotation); //, objectsGroup, true);
+                                //GameObject gameObject = Instantiate(wobj.gameObject, position, rotation); //, objectsGroup, true);
                                 // 最后一个参数 instantiateInWorldSpace 表示在世界空间中定位位置，而不是基于父亲。
                                 // 等等，好像没有 objectsGroup，啥时候删了awa
-                                worldObjects.Add(gameObject);
-                                Debug.Log($"New GameObject {wobj.ObjID} on position: ({position.x}, {position.y}, {position.z}) rotation: ({rotation.x}, {rotation.y}, {rotation.z})");
+                                //wobj.gameObject = gameObject;
+                                //wobj.Position = position;
+                                //worldObjects.Add(wobj);
+                                //Debug.Log($"New GameObject {wobj.ID} on position: ({position.x}, {position.y}, {position.z}) rotation: ({rotation.x}, {rotation.y}, {rotation.z})");
+                                return;
                             }
                         }
                     }
