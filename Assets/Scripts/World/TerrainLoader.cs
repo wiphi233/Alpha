@@ -106,19 +106,24 @@ public class TerrainLoader : MonoBehaviour
     {
         new List<WorldObject>() // plains 平原
         {
-            new WorldObject(ObjID.Water)
+            new WorldObject(ObjID.Grass), 
+            new WorldObject(ObjID.Tree), 
+            new WorldObject(ObjID.Flower)
         },
         new List<WorldObject>() // mountain 山脉
         {
-            new WorldObject(ObjID.Water)
+            new WorldObject(ObjID.Grass), 
+            new WorldObject(ObjID.Stone), 
+            new WorldObject(ObjID.Tree),
         },
         new List<WorldObject>() // plateau 高原
         {
-            new WorldObject(ObjID.Water)
+            new WorldObject(ObjID.Grass), 
+            new WorldObject(ObjID.Tree), 
         },
         new List<WorldObject>() // cliff 悬崖
         {
-            // new WorldObject(1)
+            new WorldObject(ObjID.Stone)
         }
     };
 
