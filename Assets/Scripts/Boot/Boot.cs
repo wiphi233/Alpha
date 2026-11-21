@@ -84,26 +84,32 @@ public class Boot : MonoBehaviour
         lineObject.SetActive(false);
         clickTipObject.SetActive(false);
         maskObject.SetActive(false);
-#if false// UNITY_EDITOR
+        //#if false// UNITY_EDITOR
+        //        EnterBoot();
+        //#else
+
+        //DOVirtual.DelayedCall(3f, WaitAndEnterBoot);
+
+        //PSEWarningTitle.SetActive(true);
+        //PSEWarningMessage.SetActive(true);
+        //BackgroundCube.SetActive(true);
+        //PSEWarningMessageCanvasGroup = PSEWarningMessage.GetComponent<CanvasGroup>();
+        //BackgroundCubeMaterial = BackgroundCube.GetComponent<MeshRenderer>().material;
+        //PSEWarningTitleMaterial = PSEWarningTitle.GetComponent<MeshRenderer>().material;
+        //PSEWarningTitle.SetActive(false);
+        //PSEWarningMessage.SetActive(false);
+        //BackgroundCube.SetActive(false);
         EnterBoot();
-#else
-        PSEWarningTitle.SetActive(true);
-        PSEWarningMessage.SetActive(true);
-        BackgroundCube.SetActive(true);
-        PSEWarningMessageCanvasGroup = PSEWarningMessage.GetComponent<CanvasGroup>();
-        BackgroundCubeMaterial = BackgroundCube.GetComponent<MeshRenderer>().material;
-        PSEWarningTitleMaterial = PSEWarningTitle.GetComponent<MeshRenderer>().material;
-        DOVirtual.DelayedCall(3f, WaitAndEnterBoot);
-#endif
+        //#endif
     }
 
-    void WaitAndEnterBoot()
-    {
-        PSEWarningTitle.SetActive(false);
-        PSEWarningMessage.SetActive(false);
-        BackgroundCube.SetActive(false);
-        EnterBoot();
-    }
+    //void WaitAndEnterBoot()
+    //{
+    //    PSEWarningTitle.SetActive(false);
+    //    PSEWarningMessage.SetActive(false);
+    //    BackgroundCube.SetActive(false);
+    //    EnterBoot();
+    //}
 
     private void EnterBoot()
     {
@@ -169,71 +175,95 @@ public class Boot : MonoBehaviour
                             }
                             DOVirtual.Float(1f, 0f, 1f, (float x) =>
                             {
-                                lineObjectCG.alpha = x;
-                                authorObjectCG.alpha = x;
-                                iconObjectCG.alpha = x;
+                                lineObjectCG.alpha = authorObjectCG.alpha = iconObjectCG.alpha = x;
                             }).SetEase(Ease.OutSine).OnComplete(() =>
                             {
                                 lineObject.SetActive(false);
                                 authorObject.SetActive(false);
                                 iconObject.SetActive(false);
-                                clickTipObjectCG.alpha = 0f;
-                                clickTipObject.SetActive(true);
-                                titleObject.SetActive(true);
-                                DOVirtual.Float(100f, 200f, .7f, (float x) =>
+                                LightingManager.SetSkyboxCubemap(LightingManager.Instance.belfast_sunset_puresky_4k, 1f, 60f);
+                                //LightingManager.SetSkyboxGradient(Color.white, Color.white, Color.white, 16f);
+                                //CanvasGroup PSEWarningTitleCG = PSEWarningTitle.GetComponent<CanvasGroup>();
+                                //CanvasGroup PSEWarningMessageCG = PSEWarningMessage.GetComponent<CanvasGroup>();
+                                PSEWarningTitle.SetActive(true);
+                                PSEWarningMessage.SetActive(true);
+                                BackgroundCube.SetActive(true);
+                                //DOVirtual.Float(0.5f, 0f, 1f, (float x) => {
+                                //    PSEWarningTitleCG.alpha = PSEWarningMessageCG.alpha = x;
+                                //}).OnComplete(() =>
+                                //{
+                                //    DOVirtual.DelayedCall(1f, () =>
+                                //    {
+                                //        DOVirtual.Float(0.5f, 1f, 0f, (float x) =>
+                                //        {
+                                //            PSEWarningTitleCG.alpha = PSEWarningMessageCG.alpha = x;
+                                //        })
+                                DOVirtual.DelayedCall(5f, () =>
                                 {
-                                    clickTipObjectRT.anchoredPosition = new Vector2(clickTipObjectRT.anchoredPosition.x, x);
-                                    clickTipObjectCG.alpha = 1f - (200f - x) / 100f;
-                                }).SetEase(Ease.OutSine);
-                                System.Random rng = new System.Random();
-                                GameObject graphGroup = new GameObject("GraphGroup", typeof(RectTransform));
-                                RectTransform graphGroupRectTransform = graphGroup.GetComponent<RectTransform>();
-                                graphGroupRectTransform.SetParent(canvas.transform, false);
-                                for (int i = 0; i < 70; i++)
-                                {
-                                    GameObject obj = new GameObject($"Graph_{i}", typeof(RectTransform));
-                                    RectTransform rt = obj.GetComponent<RectTransform>();
-                                    rt.SetParent(graphGroupRectTransform);
-                                    rt.localScale = new Vector3((float)rng.NextDouble() * 1.4f, (float)rng.NextDouble() * 1.3f, 0);
-                                    rt.eulerAngles = new Vector3(0, 0, rng.Next(0, 360));
-                                    rt.anchoredPosition = new Vector2(rng.Next((int)-canvasRect.rect.width / 2, (int)canvasRect.rect.width / 2),
-                                        rng.Next((int)-canvasRect.rect.height / 2, (int)canvasRect.rect.height / 2));
-                                    Image objImg = obj.AddComponent<Image>();
-                                    objImg.color = UnityEngine.Random.ColorHSV(0f, 1f, 0.2f, 0.4f, 0.8f, 1.0f);
-                                    objImg.color = new Color(objImg.color.r, objImg.color.g, objImg.color.b, 0.4f);
-                                    int val = rng.Next(1, 4); // 3 + 1
-                                    if (val == 1)
+                                    PSEWarningTitle.SetActive(false);
+                                    PSEWarningMessage.SetActive(false);
+                                    BackgroundCube.SetActive(false);
+                                    // ----- 点击任意处开始 画面 -----
+                                    clickTipObjectCG.alpha = 0f;
+                                    clickTipObject.SetActive(true);
+                                    titleObject.SetActive(true);
+                                    DOVirtual.Float(100f, 200f, .7f, (float x) =>
                                     {
-                                        objImg.sprite = triangle;
-                                    }
-                                    else if (val == 2)
+                                        clickTipObjectRT.anchoredPosition = new Vector2(clickTipObjectRT.anchoredPosition.x, x);
+                                        clickTipObjectCG.alpha = 1f - (200f - x) / 100f;
+                                    }).SetEase(Ease.OutSine);
+                                    System.Random rng = new System.Random();
+                                    GameObject graphGroup = new GameObject("GraphGroup", typeof(RectTransform));
+                                    RectTransform graphGroupRectTransform = graphGroup.GetComponent<RectTransform>();
+                                    graphGroupRectTransform.SetParent(canvas.transform, false);
+                                    for (int i = 0; i < 70; i++)
                                     {
-                                        objImg.sprite = rect;
+                                        GameObject obj = new GameObject($"Graph_{i}", typeof(RectTransform));
+                                        RectTransform rt = obj.GetComponent<RectTransform>();
+                                        rt.SetParent(graphGroupRectTransform);
+                                        rt.localScale = new Vector3((float)rng.NextDouble() * 1.4f, (float)rng.NextDouble() * 1.3f, 0);
+                                        rt.eulerAngles = new Vector3(0, 0, rng.Next(0, 360));
+                                        rt.anchoredPosition = new Vector2(rng.Next((int)-canvasRect.rect.width / 2, (int)canvasRect.rect.width / 2),
+                                            rng.Next((int)-canvasRect.rect.height / 2, (int)canvasRect.rect.height / 2));
+                                        Image objImg = obj.AddComponent<Image>();
+                                        objImg.color = UnityEngine.Random.ColorHSV(0f, 1f, 0.2f, 0.4f, 0.8f, 1.0f);
+                                        objImg.color = new Color(objImg.color.r, objImg.color.g, objImg.color.b, 0.4f);
+                                        int val = rng.Next(1, 4); // 3 + 1
+                                        if (val == 1)
+                                        {
+                                            objImg.sprite = triangle;
+                                        }
+                                        else if (val == 2)
+                                        {
+                                            objImg.sprite = rect;
+                                        }
+                                        else
+                                        {
+                                            objImg.sprite = circle;
+                                        }
+                                        canvasGroups.Add(obj.AddComponent<CanvasGroup>());
+                                        Graph graph = new Graph(rt, 30f, rng);
+                                        graphs.Add(graph);
+                                        graphObjects.Add(obj);
                                     }
-                                    else
+                                    DOVirtual.DelayedCall(0.3f, () =>
                                     {
-                                        objImg.sprite = circle;
-                                    }
-                                    canvasGroups.Add(obj.AddComponent<CanvasGroup>());
-                                    Graph graph = new Graph(rt, 30f, rng);
-                                    graphs.Add(graph);
-                                    graphObjects.Add(obj);
-                                }
-                                DOVirtual.DelayedCall(0.3f, () =>
-                                {
-                                    state = 1;
-                                }).SetEase(Ease.OutSine);
-                                DOVirtual.Float(0f, 1f, .8f, (float x) =>
-                                {
-                                    foreach (var cg in canvasGroups)
+                                        state = 1;
+                                    }).SetEase(Ease.OutSine);
+                                    DOVirtual.Float(0f, 1f, .8f, (float x) =>
                                     {
-                                        cg.alpha = x;
-                                    }
-                                }).SetEase(Ease.OutSine);
-                                DOVirtual.Float(0f, 1f, .8f, (float x) =>
-                                {
-                                    titleObjectCG.alpha = x;
-                                }).SetEase(Ease.OutSine);
+                                        foreach (var cg in canvasGroups)
+                                        {
+                                            cg.alpha = x;
+                                        }
+                                    }).SetEase(Ease.OutSine);
+                                    DOVirtual.Float(0f, 1f, .8f, (float x) =>
+                                    {
+                                        titleObjectCG.alpha = x;
+                                    }).SetEase(Ease.OutSine);
+                                    // ----- 点击任意处开始 画面 -----
+                                    LightingManager.SetSkyboxGradient(Color.white, Color.white, Color.white, 16f);
+                                });
                             });
                         });
                     });

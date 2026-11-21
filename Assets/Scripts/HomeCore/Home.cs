@@ -14,6 +14,7 @@ public class Home : MonoBehaviour
     public Button WorldButton;
 
     public GameObject AboutUsButton;
+    public GameObject SettingsButton;
 
     [Header("Scripts Instance References 脚本实例引用")]
     public GameObject signalCenterObject;
@@ -58,6 +59,7 @@ public class Home : MonoBehaviour
         }
         Buttons.SetActive(true);
         AboutUsButton.SetActive(true);
+        SettingsButton.SetActive(true);
         buttonCanvasGroup.alpha = 0f;
         RhythmGameButton.enabled = false;
         WorldButton.enabled = false;
@@ -89,6 +91,7 @@ public class Home : MonoBehaviour
         RhythmGameButton.enabled = false;
         WorldButton.enabled = false;
         AboutUsButton.SetActive(false);
+        SettingsButton.SetActive(false);
         Sequence combinedSequence = DOTween.Sequence();
         combinedSequence.Join(buttonCanvasGroup.DOFade(1.0f, 0.3f).SetEase(Ease.OutQuad))
                         //.Join(buttonCanvasGroup.DOFade(0.5f, 0.5f).SetEase(Ease.InOutSine))
