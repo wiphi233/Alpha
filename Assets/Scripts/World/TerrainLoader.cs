@@ -219,7 +219,8 @@ public class TerrainLoader : MonoBehaviour
 
         grassNoise = new FastNoiseLite(rng.Next());
         grassNoise.SetNoiseType(NoiseType.OpenSimplex2);
-        grassNoise.SetFrequency(0.008f);
+        grassNoise.SetFrequency(0.002f);
+        //grassNoise.SetFrequency(0.03f);
 
         yield return null;
         World.Process("刷新地形 RefreshTerrain...");
@@ -454,8 +455,10 @@ public class TerrainLoader : MonoBehaviour
         MeshRenderer mr = obj.AddComponent<MeshRenderer>();
         MeshCollider mc = obj.AddComponent<MeshCollider>();
 
-        Mesh mesh = new Mesh();
-        mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+        Mesh mesh = new Mesh
+        {
+            indexFormat = UnityEngine.Rendering.IndexFormat.UInt32
+        };
 
         Vector3[] vertices = new Vector3[sizeX * sizeZ];
         Vector2[] uvs = new Vector2[vertices.Length];

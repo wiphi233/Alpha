@@ -28,7 +28,7 @@ public class WorldObjectsLoader : MonoBehaviour
 
     // ATTENTION
     // 此函数只在多线程中执行！
-    // originHeight 属于 [0, 1]
+    // originHeight in [0, 1]
     // x, z 为世界坐标
     public void WorldObjectGeneration(ref FastNoiseLite grassNoise, ref System.Random rng, 
         float originHeight, int x, int z, ref List<GrassParticleData> grassList, 
@@ -40,7 +40,7 @@ public class WorldObjectsLoader : MonoBehaviour
         if (originHeight > WorldConfig.waterLevelHeight)
         {
             // 水上 world object
-            if (rng.NextDouble() < Mathf.Pow((grassNoise.GetNoise(x, z) + 1f) * 0.5f, 0.5f) && rng.NextDouble() < 0.1)
+            if (rng.NextDouble() < Mathf.Pow((grassNoise.GetNoise(x, z) + 1f) * 0.5f, 3f) && rng.NextDouble() < 0.15)
             {
                 GrassParticleData grassParticleData = new GrassParticleData
                 {
